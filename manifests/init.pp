@@ -7,6 +7,7 @@
 class profile_ondemand (
   String $nodejs_version,
   String $ruby_version,
+  Hash $crons,
 ){
 
   include ::apache::mod::rewrite
@@ -41,6 +42,10 @@ class profile_ondemand (
     ensure => 'present',
     mode => '0755',
     content => file("profile_ondemand/ood-gridmap.py")
+  }
+
+  $crons.each | $k, $v | {
+    cron { $k: * => $v }
   }
 
 }
