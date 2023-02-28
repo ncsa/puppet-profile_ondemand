@@ -1,6 +1,5 @@
 #!/bin/python3
-#mapfile="/sw/admin/grid-security/oauth-mapfile.cron"
-mapfile="/tmp/grid-mapfile.yanzhan2_test"
+mapfile="/etc/security/oauth-mapfile.cron"
 
 import sys
 import syslog
