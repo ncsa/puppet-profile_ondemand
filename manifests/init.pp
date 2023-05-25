@@ -14,7 +14,7 @@ class profile_ondemand (
   include apache::mod::alias
   include apache::mod::authn_core
   include apache::mod::authz_user
-  include apache::mod::authz_ldap
+  include apache::mod::authnz_ldap
   include openondemand
 
   package { 'nodejs':
