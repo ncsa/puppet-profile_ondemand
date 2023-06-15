@@ -56,6 +56,8 @@ class profile_ondemand (
     content => file('profile_ondemand/ood-gridmap.py'),
   }
 
+  ensure_resource('file', '/etc/ood/config/apps', {'mode' => '0755'})
+
   file { '/etc/ood/config/apps/dashboard':
     ensure => 'directory',
     mode   => '0755',
