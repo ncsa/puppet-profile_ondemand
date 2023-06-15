@@ -56,18 +56,20 @@ class profile_ondemand (
     content => file('profile_ondemand/ood-gridmap.py'),
   }
 
-  exec { 'mkdir -p /etc/ood/config/apps/dashboard/initializers':
-    creates => '/etc/ood/config/apps/dashboard/initializers',
-    path    => ['/usr/bin', '/usr/sbin'],
-    # Need this to execute after the openondemand module creates and cleans out the directory
-    require => File['/etc/ood/config/apps'],
+  file { '/etc/ood/config/apps/dashboard':
+    ensure => 'directory',
+    mode   => '0755',
+  }
+
+  file { '/etc/ood/config/apps/dashboard/initializers':
+    ensure => 'directory',
+    mode   => '0755',
   }
 
   file { '/etc/ood/config/apps/dashboard/initializers/ood.rb':
     ensure  => 'file',
     mode    => '0755',
     content => epp('profile_ondemand/apps/dashboard/initializers/ood.rb.epp'),
-    require => Exec['mkdir -p /etc/ood/config/apps/dashboard/initializers'],
   }
 
   $crons.each | $k, $v | {
