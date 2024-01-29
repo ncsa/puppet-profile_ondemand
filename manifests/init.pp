@@ -26,6 +26,8 @@ class profile_ondemand (
   include apache::mod::authz_user
   include openondemand
 
+  include profile_ondemand::xdmod_export
+
   package { 'nodejs':
     ensure      => $nodejs_version,
     enable_only => true,
