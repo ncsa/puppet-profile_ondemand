@@ -45,9 +45,9 @@ class profile_ondemand (
   }
 
   file { '/opt/ood/custom':
-    ensure => 'directory',
-    mode   => '0755',
-    after  => Class['openondemand'],
+    ensure  => 'directory',
+    mode    => '0755',
+    require => Class['openondemand'],
   }
 
   file { '/opt/ood/custom/ood-gridmap.py':
