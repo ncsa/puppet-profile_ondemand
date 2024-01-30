@@ -1,7 +1,0 @@
-Rails.application.config.after_initialize do
-  OodFilesApp.candidate_favorite_paths.tap do |paths|
-<% [$profile_ondemand::favorite_paths].flatten.each |$path| { -%>
-    paths << FavoritePath.new("<%= $path %>")
-<% } -%>
-  end
-end

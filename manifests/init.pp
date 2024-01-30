@@ -18,7 +18,6 @@ class profile_ondemand (
   String $nodejs_version,
   String $ruby_version,
   Hash $crons,
-  Array $favorite_paths,
 ) {
   include apache::mod::rewrite
   include apache::mod::env
@@ -48,30 +47,13 @@ class profile_ondemand (
   file { '/opt/ood/custom':
     ensure => 'directory',
     mode   => '0755',
+    after  => Class['openondemand'],
   }
 
   file { '/opt/ood/custom/ood-gridmap.py':
     ensure  => 'file',
     mode    => '0755',
     content => file('profile_ondemand/ood-gridmap.py'),
-  }
-
-  ensure_resource('file', '/etc/ood/config/apps', {'mode' => '0755'})
-
-  file { '/etc/ood/config/apps/dashboard':
-    ensure => 'directory',
-    mode   => '0755',
-  }
-
-  file { '/etc/ood/config/apps/dashboard/initializers':
-    ensure => 'directory',
-    mode   => '0755',
-  }
-
-  file { '/etc/ood/config/apps/dashboard/initializers/ood.rb':
-    ensure  => 'file',
-    mode    => '0755',
-    content => epp('profile_ondemand/apps/dashboard/initializers/ood.rb.epp'),
   }
 
   $crons.each | $k, $v | {
