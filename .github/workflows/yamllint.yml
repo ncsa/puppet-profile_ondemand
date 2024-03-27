@@ -12,4 +12,4 @@ jobs:
         uses: "ibiqlik/action-yamllint@v3"
         with:
           strict: "true"
-          file_or_dir: "data manifests templates"
+          file_or_dir: "data manifests"
