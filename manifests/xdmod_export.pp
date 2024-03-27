@@ -52,6 +52,7 @@ class profile_ondemand::xdmod_export (
 
     file { '/home/xdmod-ondemand-export/.token':
       ensure  => 'file',
+      replace => false,
       require => User['xdmod-ondemand-export'],
       owner => 'xdmod-ondemand-export',
       group => 'xdmod-ondemand-export',
