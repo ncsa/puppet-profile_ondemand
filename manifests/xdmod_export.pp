@@ -55,7 +55,7 @@ class profile_ondemand::xdmod_export (
       require => User['xdmod-ondemand-export'],
       owner => 'xdmod-ondemand-export',
       group => 'xdmod-ondemand-export',
-      mode => '0400',
+      mode => '0600',
       content => $token,
     }
 
