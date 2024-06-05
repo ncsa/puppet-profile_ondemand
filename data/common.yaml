@@ -1,1 +1,14 @@
 --- {}
+
+letsencrypt::renew_additional_args:
+  - "--standalone"
+letsencrypt::renew_pre_hook_commands:
+  - "systemctl stop httpd"
+letsencrypt::renew_post_hook_commands:
+  - "systemctl start httpd"
+letsencrypt::certonly_additional_args:
+  - "--standalone"
+letsencrypt::certonly_pre_hook_commands:
+  - "systemctl stop httpd"
+letsencrypt::certonly_post_hook_commands:
+  - "systemctl start httpd"

@@ -24,6 +24,7 @@ class profile_ondemand (
   include apache::mod::alias
   include apache::mod::authn_core
   include apache::mod::authz_user
+  include letsencrypt
   include openondemand
 
   include profile_ondemand::xdmod_export
@@ -60,5 +61,16 @@ class profile_ondemand (
 
   $crons.each | $k, $v | {
     cron { $k: * => $v }
+  }
+
+  letsencrypt::certonly { $facts['networking']['fqdn']:
+    plugin        => 'webroot',
+    webroot_paths => [
+      "/var/www/ood/public/",
+    ],
+    require       => [
+      Class['apache::service'],
+      Class['openondemand'],
+    ],
   }
 }
