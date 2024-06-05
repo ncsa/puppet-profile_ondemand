@@ -8,10 +8,12 @@
 #
 class profile_ondemand::xdmod_export (
   Boolean $enable_xdmod_export = false,
-  String $token,
+  Optional[String] $token,
 ) {
 
   if $enable_xdmod_export {
+    assert_type(String[1], $token)
+
     user { 'xdmod-ondemand-export':
       shell => '/bin/false',
       managehome => true,
