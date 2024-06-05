@@ -15,6 +15,7 @@
 # @example
 #   include profile_ondemand
 class profile_ondemand (
+  Boolean $enable_xdmod_export = false,
   String $nodejs_version,
   String $ruby_version,
   Hash $crons,
@@ -27,7 +28,9 @@ class profile_ondemand (
   include letsencrypt
   include openondemand
 
-  include profile_ondemand::xdmod_export
+  if $enable_xdmod_export {
+    include profile_ondemand::xdmod_export
+  }
 
   package { 'nodejs':
     ensure      => $nodejs_version,
