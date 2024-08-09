@@ -67,10 +67,7 @@ class profile_ondemand (
   }
 
   letsencrypt::certonly { $facts['networking']['fqdn']:
-    plugin        => 'webroot',
-    webroot_paths => [
-      "/var/www/ood/public/",
-    ],
+    plugin        => 'standalone',
     require       => [
       Package['httpd'],
       Class['openondemand'],
