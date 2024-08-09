@@ -72,7 +72,7 @@ class profile_ondemand (
       "/var/www/ood/public/",
     ],
     require       => [
-      Class['apache::service'],
+      Package['httpd'],
       Class['openondemand'],
     ],
   }
