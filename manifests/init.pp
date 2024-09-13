@@ -9,16 +9,16 @@
 # @param crons
 #   Hash of cron jobs to set up
 #
-# @param favorite_paths
-#   Array of paths to be added as favorites for the Files app
+# @param enable_xdmod_export
+#   Whether to set up xdmod_export for ACCESS metrics
 #
 # @example
 #   include profile_ondemand
 class profile_ondemand (
-  Boolean $enable_xdmod_export = false,
   String $nodejs_version,
   String $ruby_version,
   Hash $crons,
+  Boolean $enable_xdmod_export = false,
 ) {
   include apache::mod::rewrite
   include apache::mod::env
@@ -67,8 +67,8 @@ class profile_ondemand (
   }
 
   letsencrypt::certonly { $facts['networking']['fqdn']:
-    plugin        => 'standalone',
-    require       => [
+    plugin  => 'standalone',
+    require => [
       Package['httpd'],
       Class['openondemand'],
     ],

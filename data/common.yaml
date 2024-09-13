@@ -1,5 +1,4 @@
---- {}
-
+---
 letsencrypt::renew_additional_args:
   - "--standalone"
 letsencrypt::renew_pre_hook_commands:
