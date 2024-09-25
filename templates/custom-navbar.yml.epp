@@ -1,0 +1,23 @@
+---
+nav_bar:
+
+  # These are the default configurations that would appear without this configuration.
+  # Since we're redefining the navigation bar, you have to add them back.
+  - apps
+  - files
+  - jobs
+  - clusters
+  - interactive apps
+  - my interactive sessions
+
+  <% $profile_ondemand::navbar_items.each |$menu,$contents| { -%>
+  - title: <%= $menu %>
+    links:
+    <% $contents.each |$item| { -%>
+      - title: <%= $item[title] %>
+        icon: <%= $item[icon] %>
+        url: <%= $item[url] %>
+        new_tab: true
+    <% } -%>
+  <% } -%>
+
