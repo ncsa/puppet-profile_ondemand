@@ -75,7 +75,7 @@ class profile_ondemand (
     file { '/etc/ood/config/ondemand.d/custom-navbar.yml':
       ensure  => 'file',
       mode    => '0644',
-      content => template('profile_ondemand/custom-navbar.yml.epp'),
+      content => epp('profile_ondemand/custom-navbar.yml.epp'),
     }
   }
 
