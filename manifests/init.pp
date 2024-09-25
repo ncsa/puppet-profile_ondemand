@@ -27,6 +27,9 @@ class profile_ondemand (
   include apache::mod::authz_user
   include letsencrypt
   include openondemand
+  include stdlib
+
+  include profile_ondemand::navbar
 
   if $enable_xdmod_export {
     include profile_ondemand::xdmod_export
