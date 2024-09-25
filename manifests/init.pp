@@ -72,10 +72,10 @@ class profile_ondemand (
   }
 
   if $navbar_items {
-    file { '/etc/ood/config/ondemand.d/custom_navbar.yml':
+    file { '/etc/ood/config/ondemand.d/custom-navbar.yml':
       ensure  => 'file',
       mode    => '0644',
-      content => template('profile_ondemand/custom_navbar.yml.epp'),
+      content => template('profile_ondemand/custom-navbar.yml.epp'),
     }
   }
 
