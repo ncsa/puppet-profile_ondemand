@@ -8,7 +8,6 @@ nav_bar:
   - jobs
   - clusters
   - interactive apps
-  - my interactive sessions
 
 <% $profile_ondemand::navbar_items.each |$menu,$contents| { -%>
   - title: <%= $menu %>
@@ -20,4 +19,6 @@ nav_bar:
         new_tab: true
 <% } -%>
 <% } -%>
+
+  - my interactive sessions
 
