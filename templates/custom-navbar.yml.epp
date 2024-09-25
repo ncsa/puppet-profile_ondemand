@@ -10,10 +10,10 @@ nav_bar:
   - interactive apps
   - my interactive sessions
 
-  <% $profile_ondemand::navbar_items.each |$menu,$contents| { -%>
+  <%- $profile_ondemand::navbar_items.each |$menu,$contents| { -%>
   - title: <%= $menu %>
     links:
-    <% $contents.each |$item| { -%>
+    <%- $contents.each |$item| { -%>
       - title: <%= $item[title] %>
         icon: <%= $item[icon] %>
         url: <%= $item[url] %>
