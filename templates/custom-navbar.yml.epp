@@ -13,10 +13,18 @@ nav_bar:
   - title: <%= $menu %>
     links:
 <% $contents.each |$item| { -%>
+<% if $item[title] { -%>
       - title: <%= $item[title] %>
         icon: <%= $item[icon] %>
         url: <%= $item[url] %>
         new_tab: true
+<% } -%>
+<% elseif $item[group] { -%>
+      - group: "<%= $item[group] %>"
+<% } -%>
+<% else { -%>
+      - "<%= $item %>"
+<% } -%>
 <% } -%>
 <% } -%>
 
