@@ -33,6 +33,8 @@ class profile_ondemand (
   include letsencrypt
   include openondemand
 
+  include profile_ondemand::navbar
+
   if $enable_xdmod_export {
     include profile_ondemand::xdmod_export
   }
@@ -69,14 +71,6 @@ class profile_ondemand (
 
   $crons.each | $k, $v | {
     cron { $k: * => $v }
-  }
-
-  if $navbar_items {
-    file { '/etc/ood/config/ondemand.d/custom-navbar.yml':
-      ensure  => 'file',
-      mode    => '0644',
-      content => epp('profile_ondemand/custom-navbar.yml.epp'),
-    }
   }
 
   letsencrypt::certonly { $facts['networking']['fqdn']:
