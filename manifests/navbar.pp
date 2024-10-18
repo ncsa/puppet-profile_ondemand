@@ -23,11 +23,11 @@ class profile_ondemand::navbar (
         'clusters',
         'interactive apps',
       ] +
-      $navbar_items
+      pick($navbar_items, [])
       + [
         'sessions',
       ],
-      help_bar => $helpbar_items + [
+      help_bar => pick($helpbar_items, []) + [
         'develop',
         'help',
         'user',
