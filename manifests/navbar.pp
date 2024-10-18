@@ -36,7 +36,7 @@ class profile_ondemand::navbar (
     }
   } else {
     if ! $navbar_items and ! $helpbar_items {
-      warning('Open OnDemand has an empty navigation bar!')
+      err('Open OnDemand has an empty navigation bar!')
     }
     $_content = {
       nav_bar  => pick($navbar_items, []),
