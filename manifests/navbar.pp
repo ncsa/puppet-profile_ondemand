@@ -17,20 +17,21 @@ class profile_ondemand::navbar (
   if $include_default {
     $_content = {
       nav_bar  => [
-          'apps',
-          'files',
-          'jobs',
-          'clusters',
-          'interactive apps',
-          $navbar_items,
-          'sessions',
+        'apps',
+        'files',
+        'jobs',
+        'clusters',
+        'interactive apps',
+      ] +
+      $navbar_items
+      + [
+        'sessions',
       ],
-      help_bar => [
-          $helpbar_items,
-          'develop',
-          'help',
-          'user',
-          'logout',
+      help_bar => $helpbar_items + [
+        'develop',
+        'help',
+        'user',
+        'logout',
       ],
     }
   } else {
