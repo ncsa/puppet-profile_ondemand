@@ -48,7 +48,7 @@ class profile_ondemand::navbar (
     mode    => '0644',
     content => join([
         '# File managed by Puppet - DO NOT EDIT',
-        stdlib::to_yaml($_content),
+        to_yaml($_content),
         '',
     ], '\n'),
   }
