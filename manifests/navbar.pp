@@ -16,7 +16,7 @@ class profile_ondemand::navbar (
 ) {
   if $include_default {
     $_content = {
-      nav_bar  => join([
+      nav_bar  => [
           'apps',
           'files',
           'jobs',
@@ -24,14 +24,14 @@ class profile_ondemand::navbar (
           'interactive apps',
           $navbar_items,
           'sessions',
-      ]),
-      help_bar => join([
+      ],
+      help_bar => [
           $helpbar_items,
           'develop',
           'help',
           'user',
           'logout',
-      ]),
+      ],
     }
   } else {
     if ! $navbar_items and ! $helpbar_items {
@@ -50,6 +50,6 @@ class profile_ondemand::navbar (
         '# File managed by Puppet - DO NOT EDIT',
         to_yaml($_content),
         '',
-    ], '\n'),
+    ], "\n"),
   }
 }
