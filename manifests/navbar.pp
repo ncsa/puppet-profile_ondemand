@@ -39,8 +39,8 @@ class profile_ondemand::navbar (
       warning('Open OnDemand has an empty navigation bar!')
     }
     $_content = {
-      nav_bar  => $navbar_items,
-      help_bar => $helpbar_items,
+      nav_bar  => pick($navbar_items, []),
+      help_bar => pick($helpbar_items, []),
     }
   }
 
