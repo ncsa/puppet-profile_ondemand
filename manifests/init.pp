@@ -12,10 +12,6 @@
 # @param enable_xdmod_export
 #   Whether to set up xdmod_export for ACCESS metrics
 #
-# @param navbar_items
-#   Hash of custom items to add to the navbar
-#   If left undefined, use the default navbar
-#
 # @example
 #   include profile_ondemand
 class profile_ondemand (
@@ -23,7 +19,6 @@ class profile_ondemand (
   String $ruby_version,
   Hash $crons,
   Boolean $enable_xdmod_export = false,
-  Hash $navbar_items = undef,
 ) {
   include apache::mod::rewrite
   include apache::mod::env
