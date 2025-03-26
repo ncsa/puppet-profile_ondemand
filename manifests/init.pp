@@ -65,6 +65,12 @@ class profile_ondemand (
     content => file('profile_ondemand/ood-gridmap.py'),
   }
 
+  file { '/opt/ood/custom/ood-ssh.sh':
+    ensure  => 'file',
+    mode    => '0755',
+    content => file('profile_ondemand/ood-ssh.sh'),
+  }
+
   $crons.each | $k, $v | {
     cron { $k: * => $v }
   }
