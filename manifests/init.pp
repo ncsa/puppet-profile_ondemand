@@ -12,6 +12,10 @@
 # @param enable_xdmod_export
 #   Whether to set up xdmod_export for ACCESS metrics
 #
+# @param enable_dynamic_widgets
+#   Whether to enable dynamic widgets in OOD forms
+#   See https://osc.github.io/ood-documentation/latest/reference/files/ondemand-d-ymls.html#bc-dynamic-js
+#
 # @example
 #   include profile_ondemand
 class profile_ondemand (
@@ -19,6 +23,7 @@ class profile_ondemand (
   String $ruby_version,
   Hash $crons,
   Boolean $enable_xdmod_export = false,
+  Boolean $enable_dynamic_widgets = true,
 ) {
   include apache::mod::rewrite
   include apache::mod::env
@@ -33,6 +38,13 @@ class profile_ondemand (
 
   if $enable_xdmod_export {
     include profile_ondemand::xdmod_export
+  }
+
+  if $enable_dynamic_widgets {
+    file { '/etc/ood/config/ondemand.d/dynamic-widgets.yml':
+      ensure  => 'file',
+      content => "bc_dynamic_js: true",
+    }
   }
 
   package { 'nodejs':

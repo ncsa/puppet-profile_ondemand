@@ -32,6 +32,7 @@ The following parameters are available in the `profile_ondemand` class:
 * [`ruby_version`](#-profile_ondemand--ruby_version)
 * [`crons`](#-profile_ondemand--crons)
 * [`enable_xdmod_export`](#-profile_ondemand--enable_xdmod_export)
+* [`enable_dynamic_widgets`](#-profile_ondemand--enable_dynamic_widgets)
 
 ##### <a name="-profile_ondemand--nodejs_version"></a>`nodejs_version`
 
@@ -58,6 +59,15 @@ Data type: `Boolean`
 Whether to set up xdmod_export for ACCESS metrics
 
 Default value: `false`
+
+##### <a name="-profile_ondemand--enable_dynamic_widgets"></a>`enable_dynamic_widgets`
+
+Data type: `Boolean`
+
+Whether to enable dynamic widgets in OOD forms
+See https://osc.github.io/ood-documentation/latest/reference/files/ondemand-d-ymls.html#bc-dynamic-js
+
+Default value: `true`
 
 ### <a name="profile_ondemand--navbar"></a>`profile_ondemand::navbar`
 
