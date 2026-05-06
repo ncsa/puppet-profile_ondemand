@@ -11,8 +11,8 @@
 #
 class profile_ondemand::navbar (
   Boolean $include_default = true,
-  Optional[Array[Hash]] $navbar_items = undef,
-  Optional[Array[Hash]] $helpbar_items = undef,
+  Optional[Array] $navbar_items = undef,
+  Optional[Array] $helpbar_items = undef,
 ) {
   if $include_default {
     $_content = {

@@ -1,4 +1,9 @@
 ---
+profile_ondemand::custom_certificates: {}
+
+# Jake: The below params probably aren't doing anything.
+#       I believe that data for one module inside of another
+#       is ignored by lookups.
 letsencrypt::renew_additional_args:
   - "--standalone"
 letsencrypt::renew_pre_hook_commands:

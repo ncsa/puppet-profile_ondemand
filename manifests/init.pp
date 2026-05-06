@@ -1,10 +1,17 @@
 # @summary Main class for profile_ondemand
 #
+# @param custom_certificates
+#   Optionally provide custom parameters for certificate(s) to
+#   be created. If this is not provided a cert will be created
+#   using the FQDN of the host.
+#
 # @param nodejs_version
-#   The Node.js version to use for dependency
+#   The Node.js version to use for dependency. Leave unset/null
+#   to NOT enable the DNF module nodejs:<nodejs_version>.
 #
 # @param ruby_version
-#   The Ruby version to use for dependency
+#   The Ruby version to use for dependency. Leave unset/null
+#   to NOT enable the DNF module nodejs:<nodejs_version>.
 #
 # @param crons
 #   Hash of cron jobs to set up
@@ -19,11 +26,12 @@
 # @example
 #   include profile_ondemand
 class profile_ondemand (
-  String $nodejs_version,
-  String $ruby_version,
-  Hash $crons,
-  Boolean $enable_xdmod_export = false,
-  Boolean $enable_dynamic_widgets = true,
+  Hash             $custom_certificates,
+  Optional[String] $nodejs_version,
+  Optional[String] $ruby_version,
+  Hash             $crons,
+  Boolean          $enable_xdmod_export = false,
+  Boolean          $enable_dynamic_widgets = true,
 ) {
   include apache::mod::rewrite
   include apache::mod::env
@@ -43,22 +51,28 @@ class profile_ondemand (
   if $enable_dynamic_widgets {
     file { '/etc/ood/config/ondemand.d/dynamic-widgets.yml':
       ensure  => 'file',
-      content => "bc_dynamic_js: true",
+      content => 'bc_dynamic_js: true',
     }
   }
 
-  package { 'nodejs':
-    ensure      => $nodejs_version,
-    enable_only => true,
-    provider    => 'dnfmodule',
-    before      => Class['openondemand'],
+  # make management of nodejs "package" (actually DNF module) optional
+  if ( $nodejs_version) {
+    package { 'nodejs':
+      ensure      => $nodejs_version,
+      enable_only => true,
+      provider    => 'dnfmodule',
+      before      => Class['openondemand'],
+    }
   }
 
-  package { 'ruby':
-    ensure      => $ruby_version,
-    enable_only => true,
-    provider    => 'dnfmodule',
-    before      => Class['openondemand'],
+  # make management of ruby "package" (actually DNF module) optional
+  if ( $ruby_version) {
+    package { 'ruby':
+      ensure      => $ruby_version,
+      enable_only => true,
+      provider    => 'dnfmodule',
+      before      => Class['openondemand'],
+    }
   }
 
   file { '/etc/ood/config/ood-portal.conf':
@@ -87,11 +101,17 @@ class profile_ondemand (
     cron { $k: * => $v }
   }
 
-  letsencrypt::certonly { $facts['networking']['fqdn']:
-    plugin  => 'standalone',
-    require => [
-      Package['httpd'],
-      Class['openondemand'],
-    ],
+  if !empty($custom_certificates) {
+    $custom_certificates.each |$certificate, $properties| {
+      letsencrypt::certonly { $certificate: * => $properties }
+    }
+  } else {
+    letsencrypt::certonly { $facts['networking']['fqdn']:
+      plugin  => 'standalone',
+      require => [
+        Package['httpd'],
+        Class['openondemand'],
+      ],
+    }
   }
 }
